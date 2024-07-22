@@ -4,7 +4,18 @@
 </ol>
 <div class="container">
     <form #clienteForm="ngForm" (ngSubmit)="onSubmit()">
+        
         <div class="row">
+            <div class="col-md-12">
+                <div *ngIf="success" class="alert alert-success" role="alert">
+                    Cliente salvo/atualizado com sucesso!
+                </div>
+                <div *ngFor="let erro of errors" class="alert alert-danger" role="alert">
+                    {{erro}}
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="cliente.id">
             <div class="col-md-6">
                 <div class="form-goup">
                     <label>ID:</label>
@@ -32,11 +43,14 @@
                 </div>
             </div>
         </div>
-
+        <br />
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <button type="submit" class="btn btn-success">
                     <i class="fa fa-save"></i> Salvar
+                </button>
+                <button type="button" class="btn btn-danger ml-1" (click)="voltarParaListagem()">
+                    <i class="fa fa-arrow-alt-circle-left"></i> Voltar
                 </button>
             </div>
         </div>

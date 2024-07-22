@@ -13,11 +13,9 @@ export class ClientesService {
   salvar(cliente:Cliente):Observable<Cliente>{
     return this.http.post("http://localhost:8080/api/clientes/criar", cliente);
   }
-  getCliente():Cliente{
-    let cliente:Cliente = new Cliente();
-    cliente.nome = "Fulano";
-    cliente.cpf = "1234567890";
 
-    return cliente;
+  getClientes():Observable<Cliente[]>{
+
+    return this.http.get<Cliente[]>("http://localhost:8080/api/clientes/buscar");
   }
 }
