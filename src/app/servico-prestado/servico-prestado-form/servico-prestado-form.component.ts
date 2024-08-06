@@ -3,6 +3,7 @@ import { Cliente } from '../../clientes/clientes-form/cliente';
 import { ClientesService } from '../../clientes.service';
 import { ServicoPrestado } from '../servicoPrestado';
 import { ServicoPrestadoService } from '../../servico-prestado.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-servico-prestado-form',
@@ -16,7 +17,7 @@ export class ServicoPrestadoFormComponent implements OnInit{
   success:boolean = false;
   errors!:string[];
 
-  constructor(private clienteSevice: ClientesService, private service: ServicoPrestadoService){
+  constructor(private clienteSevice: ClientesService, private service: ServicoPrestadoService, private router:Router){
     this.servico = new ServicoPrestado();
   }
   ngOnInit(): void {
@@ -24,7 +25,19 @@ export class ServicoPrestadoFormComponent implements OnInit{
   }
 
   onSubmit(){
-    this.service.salvar(this.servico).subscribe(response => { this.servico = response; this.success = true; this.errors = []; this.servico = new ServicoPrestado()}, errorResponse =>{ this.errors = errorResponse.error.errors; this.success = false});
+    this.service.salvar(this.servico).subscribe(response => { 
+      this.servico = response; 
+      this.success = true; 
+      this.errors = []; 
+      this.servico = new ServicoPrestado();
+    }, errorResponse =>{ 
+      this.errors = errorResponse.error.errors; 
+      this.success = false
+    });
+  }
+
+  voltarParaListagem(){
+    this.router.navigate(["/servico-prestado-lista"]);
   }
 
 }
