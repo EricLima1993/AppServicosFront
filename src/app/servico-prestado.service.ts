@@ -19,7 +19,7 @@ export class ServicoPrestadoService {
   }
 
   buscar(nome:string, mes:number):Observable<ServicoPrestadoLista[]>{
-    const httpParams = new HttpParams().set("nome", nome).set("mes", mes ? mes.toString() : "");
+    const httpParams = new HttpParams().set("nome", nome ? nome : "").set("mes", mes ? mes.toString() : "");
 
     return this.http.get<any>(`${this.apiURL}/buscar/?${httpParams.toString()}`);
   }
