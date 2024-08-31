@@ -20,7 +20,7 @@ export class ClientesListaComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.service.getClientes().subscribe(response => this.clientes = response);
+    this.service.getClientes().subscribe(response => {this.clientes = response}, erroResponse => {this.mensagemErro = `Falha ao chamar o servidor! Status: ${erroResponse.error.status}`;console.log(erroResponse)});
   }
 
   novoCadastro(){

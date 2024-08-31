@@ -21,7 +21,7 @@ export class ServicoPrestadoFormComponent implements OnInit{
     this.servico = new ServicoPrestado();
   }
   ngOnInit(): void {
-    this.clienteSevice.getClientes().subscribe(response => {this.clientes = response;});
+    this.clienteSevice.getClientes().subscribe(response => {this.clientes = response;}, erroResponse => {this.errors = [`Falha ao buscar o a lista de clientes, erro no servidor! Status: ${erroResponse.error.status}`];console.log(erroResponse)});
   }
 
   onSubmit(){
@@ -31,8 +31,12 @@ export class ServicoPrestadoFormComponent implements OnInit{
       this.errors = []; 
       this.servico = new ServicoPrestado();
     }, errorResponse =>{ 
-      this.errors = errorResponse.error.errors; 
-      this.success = false
+      if(errorResponse.error.errors){
+        this.errors = errorResponse.error.errors;
+      }else{
+        this.errors =  [`Falha ao chamar o servidor! Status: ${errorResponse.error.status}`]; 
+      }
+      this.success = false; 
     });
   }
 

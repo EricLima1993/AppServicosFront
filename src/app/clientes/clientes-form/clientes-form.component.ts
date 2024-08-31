@@ -21,9 +21,30 @@ export class ClientesFormComponent implements OnInit {
 
   onSubmit(){
     if(this.id){
-      this.service.atualizar(this.cliente).subscribe(response => {this.success = true; this.errors = [];}, errorResponse => {this.errors = errorResponse.error.errors; this.success = false});
+      this.service.atualizar(this.cliente).subscribe(response => {
+        this.success = true; 
+        this.errors = [];
+      }, errorResponse => {
+        if(errorResponse.error.errors){
+          this.errors = errorResponse.error.errors;
+        }else{
+          this.errors =  [`Falha ao chamar o servidor! Status: ${errorResponse.error.status}`]; 
+        }
+        this.success = false; 
+      });
     }else{
-      this.service.salvar(this.cliente).subscribe(response => {this.success = true; this.errors = []; this.cliente = response}, errorResponse => {this.errors = errorResponse.error.errors; this.success = false});
+      this.service.salvar(this.cliente).subscribe(response => {
+        this.success = true; 
+        this.errors = []; 
+        this.cliente = response
+      }, errorResponse => {
+        if(errorResponse.error.errors){
+          this.errors = errorResponse.error.errors;
+        }else{
+          this.errors =  [`Falha ao chamar o servidor! Status: ${errorResponse.error.status}`]; 
+        }
+        this.success = false; 
+      });
     }
   }
 
