@@ -5,12 +5,14 @@ import { ClientesRoutingModule } from './clientes-routing.module';
 import { ClientesFormComponent } from './clientes-form/clientes-form.component';
 import { FormsModule } from '@angular/forms';
 import { ClientesListaComponent } from './clientes-lista/clientes-lista.component';
+import { CpfCasePipe } from '../cpf-case.pipe';
 
 
 @NgModule({
   declarations: [
     ClientesFormComponent,
-    ClientesListaComponent
+    ClientesListaComponent,
+    CpfCasePipe
   ],
   imports: [
     CommonModule,

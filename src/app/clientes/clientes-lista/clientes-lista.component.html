@@ -37,7 +37,7 @@
                     <tr *ngFor="let cliente of clientes">
                         <th>{{ cliente.id }}</th>
                         <th>{{ cliente.nome }}</th>
-                        <th>{{ cliente.cpf }}</th>
+                        <th>{{ cliente.cpf | cpfCase}}</th>
                         <th>{{ cliente.dataCadastro }}</th>
                         <th>
                             <button class="btn btn-primary" routerLink="/clientes-form/{{cliente.id}}">
