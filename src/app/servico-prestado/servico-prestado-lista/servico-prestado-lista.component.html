@@ -56,7 +56,7 @@
                     <tbody>
                         <tr *ngFor="let servico of lista">
                             <th>{{ servico.descricao }}</th>
-                            <th>{{ servico.valor }}</th>
+                            <th>{{ servico.valor | currency: 'BRL' }}</th>
                             <th>{{ servico.data }}</th>
                             <th>{{ servico.cliente.nome }}</th>
                         </tr>
