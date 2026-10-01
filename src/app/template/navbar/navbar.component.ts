@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../auth/auth.service'; // ajuste o caminho conforme onde está o auth.service.ts
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -6,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  logout() {
+  this.authService.logout();
+  this.router.navigate(['/login']);
+}
 
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
+import { UsuarioService } from '../usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -13,21 +15,33 @@ export class LoginComponent {
   loginError!: boolean;
   cadastrando!: boolean;
 
-  constructor( private router: Router) {
-
-  }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private usuarioService: UsuarioService
+  ) { }
 
   onSubmit() {
-    this.router.navigate(['/home']);
+    this.loginError = false;
+    this.authService.login(this.username, this.password).subscribe({
+      next: () => this.router.navigate(['/home']),
+      error: () => this.loginError = true
+    });
   }
 
-  prepararCadastrar(Event: Event) {
-    Event.preventDefault();
+  prepararCadastrar(event: Event) {
+    event.preventDefault();
     this.cadastrando = true;
   }
 
   cadastrar() {
-    console.log(`Cadastrando usuário: ${this.username}, Senha: ${this.password}`);
+    this.usuarioService.cadastrar(this.username, this.password).subscribe({
+      next: () => {
+        this.cadastrando = false;
+        this.loginError = false;
+      },
+      error: () => this.loginError = true
+    });
   }
 
   cancelarCadastro() {
